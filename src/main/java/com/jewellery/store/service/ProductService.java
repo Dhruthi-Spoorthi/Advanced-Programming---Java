@@ -6,18 +6,27 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.jewellery.store.model.Product;
+import com.jewellery.store.repository.CategoryRepository;
 import com.jewellery.store.repository.ProductRepository;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Product createProduct(Product product) {
+
+        if (categoryRepository.findByName(product.getCategory()).isEmpty()) {
+            throw new IllegalArgumentException("Category does not exist");
+        }
+
         return productRepository.save(product);
     }
 
