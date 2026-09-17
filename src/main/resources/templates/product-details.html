@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | LUMÉ JEWELS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #faf9f7;
+            color: #222;
+        }
+
+        nav {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-size: 24px;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .cart-link {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 25px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .product {
+            background: white;
+            border: 1px solid #e6e6e6;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            padding: 40px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 500px;
+            background: #f1efeb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .category {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 38px;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .price {
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .details {
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .detail-label {
+            color: #777;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .stock {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .in-stock {
+            color: #2d7a46;
+        }
+
+        .out-stock {
+            color: #b33a3a;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: #222;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .error {
+            text-align: center;
+            padding: 60px;
+        }
+
+        @media (max-width: 800px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .product {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 30px;
+            }
+
+            .product-image {
+                height: 350px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">LUMÉ JEWELS</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/cart" class="cart-link">
+            Cart (<span id="cartCount">0</span>)
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <a href="/shop" class="back-link">← Back to Shop</a>
+
+    <div id="loading">
+        Loading product...
+    </div>
+
+    <div id="productContainer" style="display: none;">
+
+        <div class="product">
+
+            <div class="product-image" id="productImage"></div>
+
+            <div class="product-info">
+
+                <div class="category" id="productCategory"></div>
+
+                <h1 id="productName"></h1>
+
+                <div class="price" id="productPrice"></div>
+
+                <p class="description" id="productDescription"></p>
+
+                <div class="details">
+
+                    <div class="detail-row">
+                        <span class="detail-label">Material</span>
+                        <span class="detail-value" id="productMaterial"></span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Stock</span>
+                        <span class="detail-value" id="productStock"></span>
+                    </div>
+
+                </div>
+
+                <div class="stock" id="stockMessage"></div>
+
+                <button id="addToCartButton">
+                    Add to Cart
+                </button>
+
+                <div class="message" id="message"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="errorContainer" class="error" style="display: none;">
+        <h2>Product not found</h2>
+        <p>This product may no longer be available.</p>
+        <br>
+        <a href="/shop">Return to Shop</a>
+    </div>
+
+</div>
+
+<script>
+
+    let currentProduct = null;
+
+    function getProductId() {
+        const parts = window.location.pathname.split("/");
+        return parts[parts.length - 1];
+    }
+
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const count = cart.reduce((total, item) => {
+            return total + item.quantity;
+        }, 0);
+
+        document.getElementById("cartCount").textContent = count;
+    }
+
+    function addToCart() {
+
+        if (!currentProduct) {
+            return;
+        }
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existingItem = cart.find(
+            item => item.id === currentProduct.id
+        );
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+
+            cart.push({
+                id: currentProduct.id,
+                name: currentProduct.name,
+                price: currentProduct.price,
+                image: currentProduct.image,
+                quantity: 1
+            });
+
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        updateCartCount();
+
+        const message = document.getElementById("message");
+
+        message.textContent = "Added to cart.";
+
+        setTimeout(() => {
+            message.textContent = "";
+        }, 2000);
+    }
+
+    async function loadProduct() {
+
+        const productId = getProductId();
+
+        try {
+
+            const response = await fetch(
+                `/api/products/${productId}`
+            );
+
+            if (!response.ok) {
+                throw new Error("Product not found");
+            }
+
+            currentProduct = await response.json();
+
+            document.getElementById("productName").textContent =
+                currentProduct.name;
+
+            document.getElementById("productCategory").textContent =
+                currentProduct.category;
+
+            document.getElementById("productPrice").textContent =
+                "₹" + Number(currentProduct.price).toLocaleString("en-IN");
+
+            document.getElementById("productDescription").textContent =
+                currentProduct.description || "No description available.";
+
+            document.getElementById("productMaterial").textContent =
+                currentProduct.material || "Not specified";
+
+            document.getElementById("productStock").textContent =
+                currentProduct.stock;
+
+            const stockMessage =
+                document.getElementById("stockMessage");
+
+            const button =
+                document.getElementById("addToCartButton");
+
+            if (currentProduct.stock > 0) {
+
+                stockMessage.textContent =
+                    "In stock";
+
+                stockMessage.className =
+                    "stock in-stock";
+
+            } else {
+
+                stockMessage.textContent =
+                    "Out of stock";
+
+                stockMessage.className =
+                    "stock out-stock";
+
+                button.disabled = true;
+                button.textContent = "Out of Stock";
+            }
+
+            const imageContainer =
+                document.getElementById("productImage");
+
+            if (currentProduct.image) {
+
+                const img = document.createElement("img");
+
+                img.src = currentProduct.image;
+                img.alt = currentProduct.name;
+
+                imageContainer.appendChild(img);
+
+            } else {
+
+                const placeholder =
+                    document.createElement("div");
+
+                placeholder.className = "placeholder";
+                placeholder.textContent = "Jewellery Image";
+
+                imageContainer.appendChild(placeholder);
+            }
+
+            document.getElementById("loading").style.display = "none";
+
+            document.getElementById("productContainer").style.display =
+                "block";
+
+        } catch (error) {
+
+            document.getElementById("loading").style.display = "none";
+
+            document.getElementById("errorContainer").style.display =
+                "block";
+        }
+    }
+
+    document
+        .getElementById("addToCartButton")
+        .addEventListener("click", addToCart);
+
+    updateCartCount();
+    loadProduct();
+
+</script>
+
+</body>
+</html>

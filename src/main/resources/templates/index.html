@@ -1,11 +1,604 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jewellery Store</title>
+
+    <title>LUMÉ JEWELS | Fine Jewellery</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #faf9f7;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #222;
+            font-size: 15px;
+        }
+
+        .cart {
+            font-weight: bold;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 600px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(250, 249, 247, 0.9),
+                    rgba(250, 249, 247, 0.9)
+                );
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero-label {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto 35px;
+            color: #666;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            padding: 15px 32px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .hero-button:hover {
+            background: #444;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: white;
+            padding: 90px 20px;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .about h2 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* FEATURED PRODUCTS */
+
+        .featured {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .featured-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .featured-header h2 {
+            font-size: 36px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        #featured-products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #eeeeee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            height: 280px;
+            background: #f1f1f1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .category {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .product-content h3 {
+            margin: 8px 0;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .details-button {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #222;
+            color: #222;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .details-button:hover {
+            background: #f5f5f5;
+        }
+
+        .view-all {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .view-all a {
+            display: inline-block;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #bbb;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            #featured-products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a:not(.cart) {
+                display: none;
+            }
+
+            .hero {
+                min-height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .about h2,
+            .featured-header h2 {
+                font-size: 30px;
+            }
+
+            #featured-products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to my Jewellery Store</h1>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            LUMÉ JEWELS
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/shop">
+                Shop
+            </a>
+
+            <a href="/cart" class="cart">
+                Cart (<span id="cart-count">0</span>)
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                Timeless Jewellery
+            </div>
+
+            <h1>
+                Jewellery That Tells Your Story
+            </h1>
+
+            <p>
+                Discover thoughtfully crafted jewellery designed
+                to celebrate your most meaningful moments.
+            </p>
+
+            <a href="/shop" class="hero-button">
+                Explore Collection
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section class="about">
+
+        <div class="about-content">
+
+            <div class="section-label">
+                Our Philosophy
+            </div>
+
+            <h2>
+                Crafted With Elegance
+            </h2>
+
+            <p>
+                At LUMÉ JEWELS, we believe jewellery is more than
+                an accessory. Each piece is designed to bring
+                timeless elegance to everyday moments and special
+                occasions.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURED PRODUCTS -->
+
+    <section class="featured">
+
+        <div class="featured-header">
+
+            <div class="section-label">
+                Our Collection
+            </div>
+
+            <h2>
+                Featured Jewellery
+            </h2>
+
+        </div>
+
+        <div id="featured-products">
+
+            <p>
+                Loading products...
+            </p>
+
+        </div>
+
+        <div class="view-all">
+
+            <a href="/shop">
+                View Full Collection
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 LUMÉ JEWELS. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /*
+         * Update cart count.
+         */
+
+        function updateCartCount() {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem("cart")
+                ) || [];
+
+            const count =
+                cart.reduce(
+                    (total, item) =>
+                        total + item.quantity,
+                    0
+                );
+
+            document.getElementById(
+                "cart-count"
+            ).textContent = count;
+        }
+
+
+        /*
+         * Load featured products from MongoDB
+         * through the Spring Boot REST API.
+         */
+
+        async function loadFeaturedProducts() {
+
+            const container =
+                document.getElementById(
+                    "featured-products"
+                );
+
+            try {
+
+                const response =
+                    await fetch("/api/products");
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Failed to load products"
+                    );
+                }
+
+                const products =
+                    await response.json();
+
+                const featuredProducts =
+                    products
+                        .filter(product => product.featured)
+                        .slice(0, 3);
+
+
+                if (featuredProducts.length === 0) {
+
+                    container.innerHTML = `
+                        <p>
+                            No featured products available.
+                        </p>
+                    `;
+
+                    return;
+                }
+
+
+                container.innerHTML =
+                    featuredProducts.map(product => `
+
+                        <article class="product-card">
+
+                            <div class="product-image">
+
+                                ${
+                                    product.image
+                                    ?
+                                    `<img
+                                        src="${product.image}"
+                                        alt="${product.name}"
+                                    >`
+                                    :
+                                    `<div class="placeholder">
+                                        Jewellery Image
+                                    </div>`
+                                }
+
+                            </div>
+
+
+                            <div class="product-content">
+
+                                <div class="category">
+                                    ${product.category || "Jewellery"}
+                                </div>
+
+                                <h3>
+                                    ${product.name}
+                                </h3>
+
+                                <div class="price">
+                                    ₹${Number(product.price).toLocaleString("en-IN")}
+                                </div>
+
+                                <a
+                                    href="/product/${product.id}"
+                                    class="details-button"
+                                >
+                                    View Details
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    `).join("");
+
+            } catch (error) {
+
+                console.error(error);
+
+                container.innerHTML = `
+                    <p>
+                        Unable to load featured products.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        updateCartCount();
+        loadFeaturedProducts();
+
+    </script>
+
 </body>
+
 </html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Categories | Admin | LUMÉ JEWELS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f6f4;
+            color: #222;
+        }
+
+        nav {
+            height: 70px;
+            background: #222;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #777;
+        }
+
+        .add-button {
+            background: #222;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .form-container {
+            display: none;
+
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        textarea {
+            padding: 12px;
+
+            border: 1px solid #ddd;
+            border-radius: 6px;
+
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .save-button,
+        .cancel-button {
+            padding: 11px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background: #222;
+            color: white;
+            border: none;
+        }
+
+        .cancel-button {
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .categories-table {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f8f8;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit,
+        .delete {
+            border: none;
+            padding: 7px 11px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit {
+            background: #eee;
+        }
+
+        .delete {
+            background: #222;
+            color: white;
+        }
+
+        .status {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            LUMÉ JEWELS — ADMIN
+        </div>
+
+        <div>
+            <a href="/admin">
+                Dashboard
+            </a>
+
+            <a href="/shop">
+                Store
+            </a>
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>
+                    Category Management
+                </h1>
+
+                <p>
+                    Add, edit and remove jewellery categories.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                onclick="showAddForm()"
+            >
+                + Add Category
+            </button>
+
+        </div>
+
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+
+        <!-- Category Form -->
+
+        <section
+            id="form-container"
+            class="form-container"
+        >
+
+            <h2 id="form-title">
+                Add Category
+            </h2>
+
+
+            <form id="category-form">
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Category Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                    >
+                        Save Category
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        onclick="hideForm()"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- Categories Table -->
+
+        <section class="categories-table">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="category-list">
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="empty"
+                        >
+                            Loading categories...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        let categories = [];
+
+        let editingCategoryId = null;
+
+
+        async function loadCategories() {
+
+            try {
+
+                const response =
+                    await fetch("/api/categories");
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to load categories"
+                    );
+
+                }
+
+
+                categories =
+                    await response.json();
+
+
+                displayCategories();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showStatus(
+                    "Unable to load categories.",
+                    true
+                );
+
+            }
+
+        }
+
+
+        function displayCategories() {
+
+            const list =
+                document.getElementById(
+                    "category-list"
+                );
+
+
+            if (categories.length === 0) {
+
+                list.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="empty"
+                        >
+                            No categories available.
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+            }
+
+
+            list.innerHTML =
+                categories.map(category => `
+
+                    <tr>
+
+                        <td>
+                            ${category.name}
+                        </td>
+
+                        <td>
+                            ${category.description}
+                        </td>
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="edit"
+                                    onclick="editCategory('${category.id}')"
+                                >
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="delete"
+                                    onclick="deleteCategory('${category.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `).join("");
+
+        }
+
+
+        function showAddForm() {
+
+            editingCategoryId = null;
+
+
+            document.getElementById(
+                "form-title"
+            ).textContent = "Add Category";
+
+
+            document.getElementById(
+                "category-form"
+            ).reset();
+
+
+            document.getElementById(
+                "form-container"
+            ).classList.add("active");
+
+        }
+
+
+        function hideForm() {
+
+            editingCategoryId = null;
+
+
+            document.getElementById(
+                "form-container"
+            ).classList.remove("active");
+
+
+            document.getElementById(
+                "category-form"
+            ).reset();
+
+        }
+
+
+        function editCategory(id) {
+
+            const category =
+                categories.find(
+                    item => item.id === id
+                );
+
+
+            if (!category) {
+                return;
+            }
+
+
+            editingCategoryId = id;
+
+
+            document.getElementById(
+                "form-title"
+            ).textContent = "Edit Category";
+
+
+            document.getElementById(
+                "name"
+            ).value =
+                category.name || "";
+
+
+            document.getElementById(
+                "description"
+            ).value =
+                category.description || "";
+
+
+            document.getElementById(
+                "form-container"
+            ).classList.add("active");
+
+        }
+
+
+        document
+            .getElementById("category-form")
+            .addEventListener(
+                "submit",
+                saveCategory
+            );
+
+
+        async function saveCategory(event) {
+
+            event.preventDefault();
+
+
+            const category = {
+
+                name:
+                    document.getElementById(
+                        "name"
+                    ).value.trim(),
+
+                description:
+                    document.getElementById(
+                        "description"
+                    ).value.trim()
+
+            };
+
+
+            try {
+
+                let response;
+
+
+                if (editingCategoryId) {
+
+                    response =
+                        await fetch(
+                            `/api/categories/${editingCategoryId}`,
+                            {
+                                method: "PUT",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(category)
+                            }
+                        );
+
+                } else {
+
+                    response =
+                        await fetch(
+                            "/api/categories",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(category)
+                            }
+                        );
+
+                }
+
+
+                if (!response.ok) {
+
+                    const error =
+                        await response.json();
+
+
+                    throw new Error(
+                        error.error ||
+                        "Unable to save category"
+                    );
+
+                }
+
+
+                showStatus(
+                    editingCategoryId
+                        ? "Category updated successfully."
+                        : "Category created successfully."
+                );
+
+
+                hideForm();
+
+
+                await loadCategories();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showStatus(
+                    error.message,
+                    true
+                );
+
+            }
+
+        }
+
+
+        async function deleteCategory(id) {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this category?"
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/categories/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to delete category"
+                    );
+
+                }
+
+
+                showStatus(
+                    "Category deleted successfully."
+                );
+
+
+                await loadCategories();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showStatus(
+                    error.message,
+                    true
+                );
+
+            }
+
+        }
+
+
+        function showStatus(
+            message,
+            error = false
+        ) {
+
+            const status =
+                document.getElementById(
+                    "status"
+                );
+
+
+            status.textContent = message;
+
+
+            status.classList.add("show");
+
+
+            status.style.background =
+                error
+                    ? "#f8d7da"
+                    : "#e8e8e8";
+
+
+            setTimeout(() => {
+
+                status.classList.remove("show");
+
+            }, 3000);
+
+        }
+
+
+        loadCategories();
+
+    </script>
+
+</body>
+
+</html>

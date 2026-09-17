@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmed | LUMÉ JEWELS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #faf9f7;
+            color: #222;
+
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 50px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #222;
+        }
+
+        .confirmation {
+            width: min(600px, calc(100% - 40px));
+
+            margin: auto;
+
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+
+            padding: 50px 35px;
+
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 50%;
+
+            background: #222;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+        }
+
+        h1 {
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .order-id {
+            margin: 25px 0;
+
+            padding: 15px;
+
+            background: #f6f6f6;
+            border-radius: 6px;
+
+            font-size: 14px;
+        }
+
+        .order-id strong {
+            display: block;
+            margin-top: 7px;
+            word-break: break-all;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+        .button {
+            padding: 12px 22px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .primary {
+            background: #222;
+            color: white;
+        }
+
+        .secondary {
+            border: 1px solid #ddd;
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .confirmation {
+                padding: 40px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            LUMÉ JEWELS
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/shop">
+                Shop
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="confirmation">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+
+        <h1>
+            Order Confirmed!
+        </h1>
+
+
+        <p class="message">
+
+            Thank you for your purchase.
+
+            Your order has been successfully placed
+            and saved in our system.
+
+        </p>
+
+
+        <div class="order-id">
+
+            Order ID
+
+            <strong id="order-id">
+                Loading...
+            </strong>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <a
+                href="/shop"
+                class="button primary"
+            >
+                Continue Shopping
+            </a>
+
+            <a
+                href="/"
+                class="button secondary"
+            >
+                Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const orderId =
+            localStorage.getItem(
+                "lastOrderId"
+            );
+
+
+        const orderIdElement =
+            document.getElementById(
+                "order-id"
+            );
+
+
+        if (orderId) {
+
+            orderIdElement.textContent =
+                orderId;
+
+        } else {
+
+            orderIdElement.textContent =
+                "Order information unavailable";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

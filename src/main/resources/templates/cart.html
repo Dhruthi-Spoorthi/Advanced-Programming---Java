@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cart | LUMÉ JEWELS</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #faf9f7;
+            color: #222;
+        }
+
+        /* Navbar */
+
+        nav {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 50px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #222;
+            font-size: 15px;
+        }
+
+        /* Page */
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            margin-bottom: 35px;
+        }
+
+        /* Cart layout */
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 330px;
+            gap: 30px;
+        }
+
+        /* Cart items */
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+
+            padding: 20px;
+
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .item-image {
+            width: 110px;
+            height: 110px;
+
+            background: #f1f1f1;
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h2 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .item-price {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Quantity */
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quantity button {
+            width: 30px;
+            height: 30px;
+
+            border: 1px solid #ddd;
+            background: white;
+
+            border-radius: 5px;
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .quantity button:hover {
+            background: #f2f2f2;
+        }
+
+        .quantity span {
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Item total */
+
+        .item-total {
+            font-weight: bold;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        /* Remove */
+
+        .remove {
+            border: none;
+            background: none;
+
+            color: #888;
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+        .remove:hover {
+            color: #222;
+        }
+
+        /* Summary */
+
+        .summary {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+
+            padding: 25px;
+
+            height: fit-content;
+        }
+
+        .summary h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+            color: #555;
+        }
+
+        .summary-total {
+            border-top: 1px solid #ddd;
+
+            padding-top: 18px;
+            margin-top: 20px;
+
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .checkout {
+            width: 100%;
+
+            margin-top: 25px;
+            padding: 14px;
+
+            border: none;
+            border-radius: 6px;
+
+            background: #222;
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+        .checkout:hover {
+            background: #444;
+        }
+
+        /* Empty cart */
+
+        .empty-cart {
+            text-align: center;
+
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+
+            padding: 70px 20px;
+        }
+
+        .empty-cart p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .shop-button {
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            background: #222;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+
+            .item-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .item-total {
+                margin-left: auto;
+            }
+
+            .remove {
+                width: 100%;
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            LUMÉ JEWELS
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/shop">
+                Shop
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+
+    <main class="container">
+
+        <h1>
+            Your Shopping Cart
+        </h1>
+
+
+        <div id="cart-container">
+
+            Loading cart...
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /*
+         * Read cart from localStorage.
+         */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+
+        /*
+         * Display the cart.
+         */
+
+        function displayCart() {
+
+            const container =
+                document.getElementById("cart-container");
+
+
+            /*
+             * Show empty cart message.
+             */
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty-cart">
+
+                        <h2>
+                            Your cart is empty
+                        </h2>
+
+                        <p>
+                            Add some beautiful jewellery
+                            to your cart to continue.
+                        </p>
+
+                        <a
+                            href="/shop"
+                            class="shop-button"
+                        >
+                            Continue Shopping
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            /*
+             * Calculate subtotal.
+             */
+
+            const subtotal =
+                cart.reduce(
+                    (total, item) =>
+                        total +
+                        (item.price * item.quantity),
+                    0
+                );
+
+
+            /*
+             * Generate cart items.
+             */
+
+            const itemsHTML =
+                cart.map(item => `
+
+                    <div class="cart-item">
+
+                        <div class="item-image">
+
+                            ${
+                                item.image
+                                ?
+                                `<img
+                                    src="${item.image}"
+                                    alt="${item.name}"
+                                >`
+                                :
+                                `<span class="placeholder">
+                                    Jewellery
+                                </span>`
+                            }
+
+                        </div>
+
+
+                        <div class="item-details">
+
+                            <h2>
+                                ${item.name}
+                            </h2>
+
+                            <div class="item-price">
+                                ₹${Number(item.price)
+                                    .toLocaleString("en-IN")}
+                                each
+                            </div>
+
+                        </div>
+
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQuantity('${item.id}', -1)"
+                            >
+                                −
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQuantity('${item.id}', 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <div class="item-total">
+
+                            ₹${Number(
+                                item.price * item.quantity
+                            ).toLocaleString("en-IN")}
+
+                        </div>
+
+
+                        <button
+                            class="remove"
+                            onclick="removeItem('${item.id}')"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                `).join("");
+
+
+            /*
+             * Render complete cart.
+             */
+
+            container.innerHTML = `
+
+                <div class="cart-layout">
+
+                    <div class="cart-items">
+
+                        ${itemsHTML}
+
+                    </div>
+
+
+                    <aside class="summary">
+
+                        <h2>
+                            Order Summary
+                        </h2>
+
+
+                        <div class="summary-row">
+
+                            <span>
+                                Subtotal
+                            </span>
+
+                            <span>
+                                ₹${Number(subtotal)
+                                    .toLocaleString("en-IN")}
+                            </span>
+
+                        </div>
+
+
+                        <div class="summary-row">
+
+                            <span>
+                                Delivery
+                            </span>
+
+                            <span>
+                                Free
+                            </span>
+
+                        </div>
+
+
+                        <div class="summary-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <span>
+                                ₹${Number(subtotal)
+                                    .toLocaleString("en-IN")}
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="checkout"
+                            onclick="goToCheckout()"
+                        >
+                            Proceed to Checkout
+                        </button>
+
+                    </aside>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /*
+         * Change product quantity.
+         */
+
+        function changeQuantity(productId, change) {
+
+            const item =
+                cart.find(
+                    item => item.id === productId
+                );
+
+
+            if (!item) {
+                return;
+            }
+
+
+            item.quantity += change;
+
+
+            /*
+             * Remove item if quantity
+             * becomes zero.
+             */
+
+            if (item.quantity <= 0) {
+
+                cart =
+                    cart.filter(
+                        item => item.id !== productId
+                    );
+
+            }
+
+
+            saveCart();
+
+        }
+
+
+        /*
+         * Remove an item completely.
+         */
+
+        function removeItem(productId) {
+
+            cart =
+                cart.filter(
+                    item => item.id !== productId
+                );
+
+            saveCart();
+
+        }
+
+
+        /*
+         * Save cart to localStorage.
+         */
+
+        function saveCart() {
+
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(cart)
+            );
+
+            displayCart();
+
+        }
+
+
+        /*
+         * Checkout will be built next.
+         */
+
+        function goToCheckout() {
+            window.location.href = "/checkout";
+        }
+
+
+        displayCart();
+
+    </script>
+
+</body>
+
+</html>
